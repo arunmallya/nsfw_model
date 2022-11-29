@@ -29,11 +29,12 @@ def load_images(image_paths, image_size, verbose=True):
     loaded_images = []
     loaded_image_paths = []
 
-    if isdir(image_paths):
-        parent = abspath(image_paths)
-        image_paths = [join(parent, f) for f in listdir(image_paths) if isfile(join(parent, f))]
-    elif isfile(image_paths):
-        image_paths = [image_paths]
+    if not isinstance(image_paths, list):
+        if isdir(image_paths):
+            parent = abspath(image_paths)
+            image_paths = [join(parent, f) for f in listdir(image_paths) if isfile(join(parent, f))]
+        elif isfile(image_paths):
+            image_paths = [image_paths]
 
     for img_path in image_paths:
         try:
